@@ -1,0 +1,12 @@
+{
+  "name": "qiita_organization_db_setup",
+  "version": "0.0.1",
+  "description": "Command line tool that acquires the organizations registered in qiita and set up the database.",
+  "main": "index.js",
+  "scripts": {
+      "start": "node ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
