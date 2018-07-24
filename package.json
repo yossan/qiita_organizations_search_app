@@ -11,5 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "pg": "^7.4.3"
+  },
+  "devDependencies": {
+    "dotenv": "^6.0.0"
   }
 }
