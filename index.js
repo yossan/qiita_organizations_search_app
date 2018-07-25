@@ -9,25 +9,30 @@ const database = require('./database')
 // Add Events
 
 client.on('error', (err) => {
+    console.log('client occours error')
     console.log(err)
 })
 
-fetcher.on('PageContentLoaded', (html, currentPage, next) => {
-    /*
+fetcher.on('PageContentLoaded', async (html, page) => {
     const organizations = parser.parse(html)
+    console.log(`page = ${page}, organizations.length = ${organizations.length}`)
     if (organizations.length < 1) {
-        next(-1)
-        return
+        console.log('Completed the database setup 😆')
+        client.end()
+    } else {
+        try {
+            await database.insert(client, organizations)
+        } catch (e) {
+            console.log(e)
+        }
+        fetcher.start(page+1)
     }
-    database.update(organizations)
-    */
-
-    console.log(html)
-    //next(currentPage+1)
-    client.end()
 })
 
-fetcher.on('err', (err) => {
+fetcher.on('error', (err) => {
+    console.log('fetcher occurs error')
+    console.log(err)
+    client.end()
 })
 
 // Run app
@@ -37,11 +42,12 @@ client.connect()
 database
     .initialize(client)
     .then(() => {
-        console.log('Initialize success')
-        fetcher.start(0)
+        console.log('Succeeded to initialize database')
+        fetcher.start(1)
     })
     .catch((e) => {
-        console.log('Initialize failure')
+        console.log('database occurs error')
+        console.log(e)
         client.end()
     })
 

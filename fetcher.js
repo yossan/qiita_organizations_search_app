@@ -5,8 +5,7 @@ class Fetcher extends EventEmitter {
     start (page) {
         this._fetchAt(page)
             .then((html) => {
-                const next = this._fetchAt
-                this.emit('PageContentLoaded', html, page, next) 
+                this.emit('PageContentLoaded', html, page) 
             })
             .catch((err) => {
                 this.emit('error', err)
