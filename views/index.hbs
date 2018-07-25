@@ -1,2 +1,13 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<h1>Organizations Search in Qiita</h1>
+<form action="search/at" method="POST" >
+    <p>Search the registered organizations by address</p>
+    <input type="text" placeholder="東京">
+    <input type="submit">
+</form>
+<ul>
+    {{#organizations}}
+        <li>
+            {{name}}
+        </li>
+    {{/organizations}}
+</ul>
