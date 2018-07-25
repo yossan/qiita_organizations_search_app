@@ -1,32 +1,51 @@
-const {Client} = require('pg')
-
-const client = new Client()
 const tbname = 'organizations'
 
 // Connect Database
-client.connect()
+
+function createtb(client) {
+    let stmt = 
+    `CREATE TABLE ${tbname} (
+        name TEXT PRIMARY KEY,
+        thumbnail TEXT,
+        num_of_members INTEGER,
+        address TEXT,
+        description TEXT,
+        url TEXT
+    );`
+
+    return client.query(stmt)
+}
+
+function droptb(client) {
+    let stmt = `DROP TABLE IF EXISTS ${tbname};`
+    return client.query(stmt)
+}
 
 // function initialize()
-module.exports.initialize = (async () => {
+module.exports.initialize = (async (client) => {
     try { 
-        let stmt = 
-        `CREATE TABLE IF NOT EXISTS ${tbname} (
-            name TEXT PRIMARY KEY,
-            thumbnail TEXT,
-            num_of_members INTEGER,
-            url TEXT,
-            desc TEXT,
-            address TEXT
-        );`
-        const ret = await client.query(stmt)
-        console.log(ret)
+        await droptb(client)
+        await createtb(client)
     } catch (e) {
-        console.log('Error occurs: ' + e)
+        throw e
     }
-
-    client.end()
 })
 
-// function update(organizations)
-module.exports.update = (async (organizations) => {
+// function insert(organizations)
+module.exports.insert = (async (organizations) => {
+    const stmt = `INSERT INTO ${tbname} (name, thumbnil, num_of_members, address, description, url) values (?, ?, ?, ?, ?, ?)`
+    for (const o of organizations) {
+        try {
+            client.query(stmt, [
+                o.name,
+                o.thumbnail,
+                o.num_of_members,
+                o.address,
+                o.description,
+                o.url
+            ])
+        } catch (e) {
+        }
+    }
 })
+
