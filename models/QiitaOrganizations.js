@@ -47,7 +47,27 @@ module.exports.insert = (async (client, organizations) => {
 })
 
 // function searchByAddress(address)
+module.exports.searchByAddress = (async (client, addresses) => {
+    const likes = addresses.reduce((accumurator, address) => {
+        const num = accumurator.length + 1
+        const like = `address LIKE $${num}`
+        accumurator.push(like)
+        return accumurator
+    }, [])
+    const values = addresses.reduce((accumurator, address) => {
+        const value = `%${address}%`
+        accumurator.push(value)
+        return accumurator
+    }, [])
+
+    const stmt = `SELECT * FROM ${tbname} WHERE ${likes.join(' OR ')}`
+    console.log(stmt)
+    console.log(values)
+    return client.query(stmt, values)
+
+    /*
 module.exports.searchByAddress = (async (client, address) => {
     const stmt = `SELECT * from ${tbname} WHERE address LIKE $1`
     return client.query(stmt, [`%${address}%`])
+    */
 })
