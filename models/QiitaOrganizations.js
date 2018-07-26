@@ -46,3 +46,8 @@ module.exports.insert = (async (client, organizations) => {
     }
 })
 
+// function searchByAddress(address)
+module.exports.searchByAddress = (async (client, address) => {
+    const stmt = `SELECT * from ${tbname} WHERE address LIKE $1`
+    return client.query(stmt, [`%${address}%`])
+})
