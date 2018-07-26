@@ -4,7 +4,7 @@ const {Client} = require('pg')
 const client = new Client()
 const fetcher = require('./fetcher')
 const parser  = require('./parser')
-const database = require('./database')
+const database = require('../models/QiitaOrganizations')
 
 // Add Events
 
