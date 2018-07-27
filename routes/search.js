@@ -4,8 +4,7 @@ const QiitaOrganizations = require('../models/QiitaOrganizations')
 
 const router = express.Router()
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl:true
+    connectionString: process.env.DATABASE_URL
 })
 
 router.post('/', async function(req, res, next) {
