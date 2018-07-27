@@ -1,8 +1,6 @@
 const tbname = 'organizations'
 
-// Connect Database
-
-function createtb(client) {
+function _createtb(client) {
     let stmt = 
     `CREATE TABLE ${tbname} (
         name TEXT,
@@ -16,7 +14,7 @@ function createtb(client) {
     return client.query(stmt)
 }
 
-function droptb(client) {
+function _droptb(client) {
     let stmt = `DROP TABLE IF EXISTS ${tbname};`
     return client.query(stmt)
 }
@@ -24,8 +22,8 @@ function droptb(client) {
 // function initialize()
 module.exports.initialize = (async (client) => {
     try { 
-        await droptb(client)
-        await createtb(client)
+        await _droptb(client)
+        await _createtb(client)
     } catch (e) {
         throw e
     }
@@ -61,13 +59,5 @@ module.exports.searchByAddress = (async (client, addresses) => {
     }, [])
 
     const stmt = `SELECT * FROM ${tbname} WHERE ${likes.join(' OR ')}`
-    console.log(stmt)
-    console.log(values)
     return client.query(stmt, values)
-
-    /*
-module.exports.searchByAddress = (async (client, address) => {
-    const stmt = `SELECT * from ${tbname} WHERE address LIKE $1`
-    return client.query(stmt, [`%${address}%`])
-    */
 })

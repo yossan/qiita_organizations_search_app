@@ -3,7 +3,10 @@ const {Pool} = require('pg')
 const QiitaOrganizations = require('../models/QiitaOrganizations')
 
 const router = express.Router()
-const pool = new Pool()
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl:true
+})
 
 router.post('/', async function(req, res, next) {
     let client
