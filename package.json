@@ -1,10 +1,11 @@
 {
   "name": "qiita-organizations-search-app",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "node -r dotenv/config ./bin/www",
-    "setupdb": "node -r dotenv/config ./setupdb dotenv_config_path=./setupdb/.env"
+    "setupdb": "node -r dotenv/config ./setupdb dotenv_config_path=./setupdb/.env",
+    "setupdb-local": "node -r dotenv/config ./setupdb dotenv_config_path=./setupdb/.local.env"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",

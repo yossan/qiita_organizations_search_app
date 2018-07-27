@@ -2,6 +2,7 @@ const dotenv = require('dotenv').config()
 const {Client} = require('pg')
 
 const client = new Client()
+
 const fetcher = require('./fetcher')
 const parser  = require('./parser')
 const database = require('../models/QiitaOrganizations')
